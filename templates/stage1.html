@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindCare — Stage 1</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background: #eef2f7;
+               min-height: 100vh; display: flex; justify-content: center;
+               align-items: flex-start; padding: 20px; }
+        .phone { background: #f0f4f8; border-radius: 20px; padding: 20px;
+                 max-width: 420px; width: 100%; }
+        .header { background: #5b8dee; border-radius: 14px; padding: 16px;
+                  display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+        .avatar { width: 44px; height: 44px; border-radius: 50%; background: #fff;
+                  display: flex; align-items: center; justify-content: center;
+                  font-size: 22px; flex-shrink: 0; }
+        .header-text h3 { color: #fff; font-size: 15px; margin-bottom: 2px; }
+        .header-text p { color: rgba(255,255,255,0.8); font-size: 12px; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: #4ade80;
+               display: inline-block; margin-right: 4px; }
+        .progress-wrap { margin-bottom: 14px; }
+        .progress-label { display: flex; justify-content: space-between;
+                          font-size: 11px; color: #888; margin-bottom: 6px; }
+        .progress-bar { background: #e0e8f0; border-radius: 4px; height: 5px; }
+        .progress-fill { background: #5b8dee; border-radius: 4px; height: 5px; width: 33%; }
+        .chat { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+        .bubble { max-width: 85%; padding: 12px 16px; border-radius: 18px;
+                  font-size: 14px; line-height: 1.5; }
+        .bot { background: #fff; color: #333; border-bottom-left-radius: 4px;
+               align-self: flex-start; border: 0.5px solid #e0e8f0; }
+        .user { background: #5b8dee; color: #fff; border-bottom-right-radius: 4px;
+                align-self: flex-end; }
+        .q-block { margin-bottom: 16px; }
+        .q-text { font-size: 13px; font-weight: 600; color: #444;
+                  margin-bottom: 8px; padding-left: 4px; }
+        .options { display: flex; flex-direction: column; gap: 7px; }
+        .opt { background: #fff; border: 1.5px solid #e0e8f0; border-radius: 12px;
+               padding: 10px 14px; font-size: 13px; color: #444; cursor: pointer;
+               transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+        .opt:hover { border-color: #5b8dee; background: #f0f4ff; color: #5b8dee; }
+        input[type="radio"] { accent-color: #5b8dee; width: 15px; height: 15px; flex-shrink: 0; }
+        input[type="radio"]:checked + span { color: #5b8dee; font-weight: 600; }
+        .btn { width: 100%; padding: 13px; background: #5b8dee; color: #fff;
+               border: none; border-radius: 14px; font-size: 15px; font-weight: 600;
+               cursor: pointer; margin-top: 8px; transition: background 0.2s; }
+        .btn:hover { background: #4a7ad4; }
+    </style>
+</head>
+<body>
+    <div class="phone">
+        <div class="header">
+            <div class="avatar">🧠</div>
+            <div class="header-text">
+                <h3>MindCare Assistant</h3>
+                <p><span class="dot"></span>Stage 1 of 3 — Initial Questions</p>
+            </div>
+        </div>
+
+        <div class="progress-wrap">
+            <div class="progress-label"><span>Progress</span><span>Stage 1 of 3</span></div>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+
+        <div class="chat">
+            <div class="bubble bot">Let's start with some general questions about how you've been feeling lately. Answer as honestly as you can 💙</div>
+        </div>
+
+        <form action="/stage1_submit" method="POST">
+            {% for q in questions %}
+            <div class="q-block">
+                <p class="q-text">{{ loop.index }}. {{ q.text }}</p>
+                <div class="options">
+                    {% for opt in q.options %}
+                    <label class="opt">
+                        <input type="radio" name="{{ q.id }}" value="{{ opt }}" required>
+                        <span>{{ opt }}</span>
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn">Continue to Stage 2 →</button>
+        </form>
+    </div>
+</body>
+</html>

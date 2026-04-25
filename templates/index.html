@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindCare Assistant</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background: #eef2f7;
+               min-height: 100vh; display: flex; justify-content: center;
+               align-items: center; padding: 20px; }
+        .phone { background: #f0f4f8; border-radius: 20px; padding: 24px;
+                 max-width: 420px; width: 100%; }
+        .header { background: #5b8dee; border-radius: 14px; padding: 20px;
+                  display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+        .avatar { width: 52px; height: 52px; border-radius: 50%; background: #fff;
+                  display: flex; align-items: center; justify-content: center;
+                  font-size: 26px; flex-shrink: 0; }
+        .header-text h3 { color: #fff; font-size: 17px; margin-bottom: 4px; }
+        .header-text p { color: rgba(255,255,255,0.8); font-size: 13px; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: #4ade80;
+               display: inline-block; margin-right: 4px; }
+        .chat { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+        .bubble { max-width: 85%; padding: 14px 18px; border-radius: 18px;
+                  font-size: 14px; line-height: 1.6; }
+        .bot { background: #fff; color: #333; border-bottom-left-radius: 4px;
+               align-self: flex-start; border: 0.5px solid #e0e8f0; }
+        .start-btn { display: block; width: 100%; padding: 14px;
+                     background: #5b8dee; color: #fff; border: none;
+                     border-radius: 14px; font-size: 15px; font-weight: 600;
+                     cursor: pointer; text-align: center; text-decoration: none;
+                     transition: background 0.2s; }
+        .start-btn:hover { background: #4a7ad4; }
+        .disclaimer { font-size: 11px; color: #999; text-align: center;
+                      margin-top: 12px; line-height: 1.5; }
+    </style>
+</head>
+<body>
+    <div class="phone">
+        <div class="header">
+            <div class="avatar">🧠</div>
+            <div class="header-text">
+                <h3>MindCare Assistant</h3>
+                <p><span class="dot"></span>Online • Confidential</p>
+            </div>
+        </div>
+
+        <div class="chat">
+            <div class="bubble bot">Hi there! 👋 I'm MindCare, your personal wellbeing assistant.</div>
+            <div class="bubble bot">I'll ask you a few simple questions across 3 short stages and help you understand your mental wellbeing better. 💙</div>
+            <div class="bubble bot">Everything you share is completely <strong>private and confidential</strong>. There are no right or wrong answers.</div>
+            <div class="bubble bot">Ready to begin? It only takes about 3 minutes. 🕐</div>
+        </div>
+
+        <a href="/stage1" class="start-btn">Let's Start →</a>
+        <p class="disclaimer">⚠️ This is not a medical diagnosis. If you are in crisis please contact a professional immediately.</p>
+    </div>
+</body>
+</html>
