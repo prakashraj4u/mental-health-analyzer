@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindCare — Choose Your Doctor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* Video background */
+        .video-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        /* Dark overlay */
+        .overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg,
+                rgba(15,12,60,0.80),
+                rgba(79,70,229,0.70));
+            z-index: 1;
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0%   { opacity: 0.25; transform: translateY(0) scale(1); }
+            100% { opacity: 0;    transform: translateY(-110vh) scale(0.4); }
+        }
+
+        /* Main content */
+        .content {
+            position: relative;
+            z-index: 3;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+        }
+
+        /* Brand */
+        .brand { text-align: center; margin-bottom: 8px; }
+        .brand h1 {
+            color: #fff;
+            font-size: 36px;
+            font-weight: 700;
+            text-shadow: 0 2px 16px rgba(0,0,0,0.4);
+            letter-spacing: -0.5px;
+        }
+        .brand p { color: rgba(255,255,255,0.72); font-size: 14px; margin-top: 4px; }
+
+        .pill {
+            background: rgba(255,255,255,0.14);
+            border: 1px solid rgba(255,255,255,0.24);
+            border-radius: 20px;
+            padding: 7px 20px;
+            color: rgba(255,255,255,0.88);
+            font-size: 12px;
+            margin: 14px 0 26px;
+        }
+
+        .heading {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 32px;
+            opacity: 0.92;
+            letter-spacing: 0.3px;
+        }
+
+        /* Doctor cards row */
+        .doctors {
+            display: flex;
+            gap: 56px;
+            align-items: flex-end;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .divider {
+            color: rgba(255,255,255,0.38);
+            font-size: 14px;
+            align-self: center;
+            padding-bottom: 80px;
+            font-weight: 500;
+        }
+
+        /* Each doctor card */
+        .doc-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        /* Speech bubble */
+        .bubble {
+            background: #fff;
+            border-radius: 18px;
+            padding: 10px 16px;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #4f46e5;
+            margin-bottom: 14px;
+            text-align: center;
+            max-width: 190px;
+            line-height: 1.5;
+            box-shadow: 0 6px 22px rgba(0,0,0,0.22);
+            animation: pulse 2.8s ease-in-out infinite;
+        }
+
+        .bubble.left  { border-bottom-left-radius: 4px; }
+        .bubble.right { border-bottom-right-radius: 4px; }
+
+        @keyframes pulse {
+            0%,100% { transform: scale(1); }
+            50%      { transform: scale(1.04); }
+        }
+
+        /* Glass card */
+        .glass-card {
+            background: rgba(255,255,255,0.13);
+            border: 1.5px solid rgba(255,255,255,0.28);
+            border-radius: 28px;
+            padding: 22px 28px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            backdrop-filter: blur(14px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+            transition: transform 0.35s, background 0.3s;
+        }
+
+        .doc-card:hover .glass-card {
+            transform: translateY(-12px);
+            background: rgba(255,255,255,0.22);
+        }
+
+        /* Doctor image */
+        .doc-img {
+            width: 160px;
+            height: 200px;
+            object-fit: contain;
+            object-position: center bottom;
+            filter: drop-shadow(0 8px 20px rgba(0,0,0,0.35));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .doc-img.delay {
+            animation-delay: 0.6s;
+            animation-duration: 3.4s;
+        }
+
+        @keyframes float {
+            0%,100% { transform: translateY(0); }
+            50%      { transform: translateY(-12px); }
+        }
+
+        /* Name box */
+        .name-box {
+            text-align: center;
+            margin-top: 14px;
+            color: #fff;
+        }
+        .name-box h3 { font-size: 16px; font-weight: 700; }
+        .name-box p  { font-size: 11.5px; opacity: 0.78; margin-top: 3px; }
+
+        /* Select button */
+        .select-btn {
+            margin-top: 14px;
+            width: 100%;
+            background: linear-gradient(135deg, #fff, #e0e7ff);
+            color: #4f46e5;
+            border: none;
+            border-radius: 14px;
+            padding: 11px 28px;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 0.2px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+            transition: all 0.25s;
+        }
+        .select-btn:hover {
+            background: #fff;
+            transform: scale(1.06);
+            box-shadow: 0 6px 24px rgba(0,0,0,0.22);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Video background -->
+    <video class="video-bg" autoplay muted loop playsinline>
+        <source src="{{ url_for('static', filename='intro.mp4') }}" type="video/mp4">
+    </video>
+
+    <!-- Dark overlay -->
+    <div class="overlay"></div>
+
+    <!-- Floating particles -->
+    <div class="particles">
+        <div class="particle" style="width:14px;height:14px;background:#a5b4fc;left:7%;animation-duration:9s;bottom:-20px"></div>
+        <div class="particle" style="width:9px;height:9px;background:#fff;left:19%;animation-duration:7s;animation-delay:2s;bottom:-20px"></div>
+        <div class="particle" style="width:18px;height:18px;background:#c4b5fd;left:53%;animation-duration:11s;animation-delay:1s;bottom:-20px"></div>
+        <div class="particle" style="width:7px;height:7px;background:#fff;left:71%;animation-duration:8s;animation-delay:3s;bottom:-20px"></div>
+        <div class="particle" style="width:12px;height:12px;background:#a5b4fc;left:87%;animation-duration:10s;animation-delay:.5s;bottom:-20px"></div>
+        <div class="particle" style="width:10px;height:10px;background:#fff;left:39%;animation-duration:6s;animation-delay:1.5s;bottom:-20px"></div>
+        <div class="particle" style="width:8px;height:8px;background:#c4b5fd;left:62%;animation-duration:8.5s;animation-delay:4s;bottom:-20px"></div>
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+        <div class="brand">
+            <h1>🧠 MindCare</h1>
+            <p>Your personal mental wellness assistant</p>
+        </div>
+        <div class="pill">✨ Confidential &nbsp;•&nbsp; Supportive &nbsp;•&nbsp; Always here for you</div>
+        <p class="heading">Who would you like to consult today?</p>
+
+        <div class="doctors">
+
+            <!-- DR. HARSHIT -->
+            <div class="doc-card">
+                <div class="bubble left">Hey! I'm Dr. Harshit 👋<br>Let's talk today!</div>
+                <div class="glass-card">
+                    <img src="{{ url_for('static', filename='harshit.png') }}"
+                         alt="Dr. Harshit"
+                         class="doc-img">
+                    <div class="name-box">
+                        <h3>Dr. Harshit</h3>
+                        <p>Male • Wellness Specialist</p>
+                    </div>
+                    <a href="/stage1?doctor=male">
+                        <button class="select-btn">Consult Dr. Harshit →</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="divider">— or —</div>
+
+            <!-- DR. INSHA -->
+            <div class="doc-card">
+                <div class="bubble right">Hi! I'm Dr. Insha 😊<br>I'm here to help you!</div>
+                <div class="glass-card">
+                    <img src="{{ url_for('static', filename='insha.png') }}"
+                         alt="Dr. Insha"
+                         class="doc-img delay">
+                    <div class="name-box">
+                        <h3>Dr. Insha</h3>
+                        <p>Female • Wellness Specialist</p>
+                    </div>
+                    <a href="/stage1?doctor=female">
+                        <button class="select-btn">Consult Dr. Insha →</button>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

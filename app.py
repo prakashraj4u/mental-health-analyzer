@@ -8,11 +8,13 @@ app.secret_key = "mentalhealthapp2024"
 @app.route('/')
 def index():
     session.clear()
-    return render_template('index.html')
+    return render_template('choose_doctor.html')
 
 @app.route('/stage1')
 def stage1():
-    return render_template('stage1.html', questions=STAGE1_QUESTIONS)
+    doctor = request.args.get('doctor', 'male')
+    session['doctor'] = doctor
+    return render_template('stage1.html', questions=STAGE1_QUESTIONS, doctor=doctor)
 
 @app.route('/stage1_submit', methods=['POST'])
 def stage1_submit():
